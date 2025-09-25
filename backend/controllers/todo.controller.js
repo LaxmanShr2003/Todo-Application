@@ -11,7 +11,7 @@ exports.createTodo = async (req, res) => {
   }
 };
 
-let a = 'unused variable';
+
 // ✅ Get all todos
 exports.getTodos = async (req, res) => {
   try {
