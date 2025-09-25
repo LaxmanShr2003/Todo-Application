@@ -1,4 +1,4 @@
-const Todo = require("../models/Todo");
+const Todo = require('../models/Todo');
 
 // ✅ Create a new todo
 exports.createTodo = async (req, res) => {
@@ -27,7 +27,7 @@ exports.updateTodo = async (req, res) => {
     const updatedTodo = await Todo.findByIdAndUpdate(
       req.params.id,
       { $set: req.body },
-      { new: true }
+      { new: true },
     );
     res.json(updatedTodo);
   } catch (err) {
@@ -39,7 +39,7 @@ exports.updateTodo = async (req, res) => {
 exports.deleteTodo = async (req, res) => {
   try {
     await Todo.findByIdAndDelete(req.params.id);
-    res.json({ message: "Todo deleted" });
+    res.json({ message: 'Todo deleted' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

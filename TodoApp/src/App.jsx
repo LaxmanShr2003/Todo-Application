@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from 'react';
+import api from './api';
 
 function App() {
   const [todos, setTodos] = useState([]);
-  const [form, setForm] = useState({ title: "", description: "" });
+  const [form, setForm] = useState({ title: '', description: '' });
   const [showModal, setShowModal] = useState(false);
-  const [error, setError] = useState(""); // store error messages
+  const [error, setError] = useState(''); // store error messages
   const [loading, setLoading] = useState(false); // show loading state
 
   // Fetch todos
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/todos");
+        const res = await api.get('todos');
         setTodos(res.data);
       } catch {
-        setError("❌ Failed to fetch todos. Please try again later.");
+        setError('❌ Failed to fetch todos. Please try again later.');
       }
     };
     fetchTodos();
@@ -24,15 +24,15 @@ function App() {
   // Create new todo
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setError('');
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:5000/api/todos", form);
+      const res = await api.post('todos', form);
       setTodos([...todos, res.data]);
-      setForm({ title: "", description: "" });
+      setForm({ title: '', description: '' });
       setShowModal(false);
     } catch (err) {
-      setError(err.response?.data?.error || "❌ Failed to add todo.");
+      setError(err.response?.data?.error || '❌ Failed to add todo.');
     } finally {
       setLoading(false);
     }
@@ -40,39 +40,35 @@ function App() {
 
   // Toggle complete
   const toggleComplete = async (id, completed) => {
-    setError("");
+    setError('');
     try {
-      const res = await axios.patch(`http://localhost:5000/api/todos/${id}`, {
+      const res = await api.patch(`todos/${id}`, {
         completed: !completed,
       });
       setTodos(todos.map((t) => (t._id === id ? res.data : t)));
-    } catch  {
-      setError("❌ Failed to update todo.");
+    } catch {
+      setError('❌ Failed to update todo.');
     }
   };
 
   // Delete todo
   const deleteTodo = async (id) => {
-    setError("");
+    setError('');
     try {
-      await axios.delete(`http://localhost:5000/api/todos/${id}`);
+      await api.delete(`todos/${id}`);
       setTodos(todos.filter((t) => t._id !== id));
     } catch {
-      setError("❌ Failed to delete todo.");
+      setError('❌ Failed to delete todo.');
     }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-50 to-indigo-100 p-6 flex flex-col items-center">
-      <h1 className="text-4xl font-extrabold text-indigo-700 mb-6 drop-shadow-lg">
-        📝 Todo App
-      </h1>
+      <h1 className="text-4xl font-extrabold text-indigo-700 mb-6 drop-shadow-lg">📝 Todo App</h1>
 
       {/* Global Error Message */}
       {error && (
-        <div className="mb-4 px-4 py-2 bg-red-100 text-red-700 rounded-lg shadow-md">
-          {error}
-        </div>
+        <div className="mb-4 px-4 py-2 bg-red-100 text-red-700 rounded-lg shadow-md">{error}</div>
       )}
 
       {/* Add Todo Button */}
@@ -90,14 +86,14 @@ function App() {
             key={todo._id}
             className={`p-5 rounded-lg shadow-lg flex justify-between items-center transition ${
               todo.completed
-                ? "bg-green-100 border border-green-300"
-                : "bg-white border border-gray-200"
+                ? 'bg-green-100 border border-green-300'
+                : 'bg-white border border-gray-200'
             }`}
           >
             <div>
               <h2
                 className={`text-xl font-semibold ${
-                  todo.completed ? "line-through text-gray-500" : "text-gray-800"
+                  todo.completed ? 'line-through text-gray-500' : 'text-gray-800'
                 }`}
               >
                 {todo.title}
@@ -109,11 +105,11 @@ function App() {
                 onClick={() => toggleComplete(todo._id, todo.completed)}
                 className={`px-4 py-1 rounded-full text-white text-sm font-medium shadow-md transition ${
                   todo.completed
-                    ? "bg-yellow-500 hover:bg-yellow-600"
-                    : "bg-green-500 hover:bg-green-600"
+                    ? 'bg-yellow-500 hover:bg-yellow-600'
+                    : 'bg-green-500 hover:bg-green-600'
                 }`}
               >
-                {todo.completed ? "Undo" : "Done"}
+                {todo.completed ? 'Undo' : 'Done'}
               </button>
               <button
                 onClick={() => deleteTodo(todo._id)}
@@ -134,9 +130,7 @@ function App() {
 
             {/* Local Error Message */}
             {error && (
-              <div className="mb-3 px-3 py-2 bg-red-100 text-red-700 rounded-lg">
-                {error}
-              </div>
+              <div className="mb-3 px-3 py-2 bg-red-100 text-red-700 rounded-lg">{error}</div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -161,7 +155,7 @@ function App() {
                   type="button"
                   onClick={() => {
                     setShowModal(false);
-                    setError("");
+                    setError('');
                   }}
                   className="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-lg transition"
                 >
@@ -171,12 +165,10 @@ function App() {
                   type="submit"
                   disabled={loading}
                   className={`px-4 py-2 rounded-lg shadow-md transition text-white ${
-                    loading
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-indigo-600 hover:bg-indigo-700"
+                    loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'
                   }`}
                 >
-                  {loading ? "Saving..." : "Save"}
+                  {loading ? 'Saving...' : 'Save'}
                 </button>
               </div>
             </form>

@@ -1,18 +1,18 @@
-import { useState } from "react";
-import api from "../api";
+import { useState } from 'react';
+import api from '../api';
 
 function TodoForm({ onAdd }) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!title || !description) return;
 
-    const { data } = await api.post("/", { title, description });
+    const { data } = await api.post('/', { title, description });
     onAdd(data); // pass to parent
-    setTitle("");
-    setDescription("");
+    setTitle('');
+    setDescription('');
   };
 
   return (

@@ -1,4 +1,4 @@
-import api from "../api";
+import api from '../api';
 
 function TodoItem({ todo, onUpdate, onDelete }) {
   const toggleComplete = async () => {
@@ -15,13 +15,9 @@ function TodoItem({ todo, onUpdate, onDelete }) {
 
   return (
     <div className="todo-item">
-      <h3 style={{ textDecoration: todo.completed ? "line-through" : "none" }}>
-        {todo.title}
-      </h3>
+      <h3 style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>{todo.title}</h3>
       <p>{todo.description}</p>
-      <button onClick={toggleComplete}>
-        {todo.completed ? "Undo" : "Complete"}
-      </button>
+      <button onClick={toggleComplete}>{todo.completed ? 'Undo' : 'Complete'}</button>
       <button onClick={deleteTodo}>Delete</button>
     </div>
   );
