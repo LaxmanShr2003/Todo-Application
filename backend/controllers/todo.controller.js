@@ -11,9 +11,8 @@ exports.createTodo = async (req, res) => {
   }
 };
 
-
 // ✅ Get all todos
-exports.getTodos = async (req, res) => {
+exports.getTodos = async (res) => {
   try {
     const todos = await Todo.find();
     res.json(todos);
@@ -40,7 +39,7 @@ exports.updateTodo = async (req, res) => {
 exports.deleteTodo = async (req, res) => {
   try {
     await Todo.findByIdAndDelete(req.params.id);
-    res.json({ message: 'Todo deleted' });
+    res.json({ message: 'Todo deleted successfully' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
