@@ -11,6 +11,10 @@ RUN npm install
 #copying everything to app folder
 COPY . .
 
+#setting environment variable for api url
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+
 # Fix esbuild version mismatch by reinstalling
 RUN npm uninstall esbuild && npm install esbuild
 
