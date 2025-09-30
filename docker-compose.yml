@@ -10,11 +10,12 @@ services:
       - 5000:5000
   
   frontend:
-    build: ./TodoApp
+    build: 
+      context: ./TodoApp
+      args:
+        VITE_API_URL: http://51.21.191.237:5000/api
     container_name: frontend
     restart: always
-    env_file:
-      - ./TodoApp/.env
     ports:
       - 5173:5173
     depends_on: 
