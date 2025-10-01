@@ -64,7 +64,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-50 to-indigo-100 p-6 flex flex-col items-center">
-      <h1 className="text-4xl font-extrabold text-indigo-700 mb-6 drop-shadow-lg">📝 Todo App</h1>
+      <h1 className="text-4xl font-extrabold text-indigo-700 mb-6 drop-shadow-lg">📝 Todo Application </h1>
 
       {/* Global Error Message */}
       {error && (
@@ -74,7 +74,7 @@ function App() {
       {/* Add Todo Button */}
       <button
         onClick={() => setShowModal(true)}
-        className="mb-6 px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-md transition"
+        className="mb-6 px-6 py-2 bg-red-600 hover:bg-indigo-700 text-white rounded-full shadow-md transition"
       >
         ➕ Add New Todo
       </button>
